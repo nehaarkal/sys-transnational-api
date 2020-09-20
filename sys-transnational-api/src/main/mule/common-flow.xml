@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd">
+<sub-flow name="external-transnational-api-call-sub-flow" doc:id="42cb5a69-6ddb-46db-bd04-adb621152b1f" >
+		<try doc:name="Try" doc:id="58e5d6d9-91ec-4861-adc3-5d9ae4ec461a" >
+			<wsc:consume doc:name="external-transnational-routes-call" doc:id="cc3e250e-fcb2-49ec-aafb-7ab61a4a6b03" operation="getRoutes" config-ref="Web_Service_Consumer_Config"/>
+			<error-handler ref="common-error-handling-error-handler" />	
+		</try>
+	</sub-flow>
+	
+</mule>

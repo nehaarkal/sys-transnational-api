@@ -1,0 +1,14 @@
+{
+    "errors": [
+        {
+            "code": "ERROR-G-403",
+            "message": "Forbidden - Attempting to access a resource to which access has not been granted",
+            "timestamp": "2020-07-02 15:39:35",
+            "transactionId": "79ccadf8326f4fb3ba995edd254c3d8c",
+            "internalData": {
+                "developerMessage": "This site is Forbidden",
+                "stackTrace": ""
+            }
+        }
+    ]
+}

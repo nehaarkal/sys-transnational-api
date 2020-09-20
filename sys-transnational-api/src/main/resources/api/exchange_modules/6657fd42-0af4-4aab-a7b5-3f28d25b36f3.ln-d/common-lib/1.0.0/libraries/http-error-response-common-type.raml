@@ -1,0 +1,17 @@
+#%RAML 1.0 DataType
+description: Common Data Type for all the HTTP Error response Codes.
+
+properties: 
+  errors:
+    type: array
+    items:
+      properties:
+        code: string
+        message: string
+        timestamp: string
+        transactionId: string
+        internalData:
+          properties:
+            developerMessage: string
+            stackTrace: 
+              type: any

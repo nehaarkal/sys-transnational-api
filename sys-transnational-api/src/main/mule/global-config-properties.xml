@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+<http:listener-config name="sys-transnational-api-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="${secure::http.port}" />
+    </http:listener-config>
+    <apikit:config name="sys-transnational-api-config" api="sys-transnational-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <import doc:name="Import" doc:id="16140b21-0c72-4f19-a4b4-54379c830b93" file="common-error-handling.xml" />
+	<wsc:config name="Web_Service_Consumer_Config" doc:name="Web Service Consumer Config" doc:id="8d158dca-8b3a-4d91-a988-eb32dd3fa2ca" >
+		<wsc:connection wsdlLocation="http://external-transnational-system.us-e1.cloudhub.io/Bookings/BookingsSOAP?wsdl" service="Bookings" port="BookingsSOAP" address="http://external-transnational-system.us-e1.cloudhub.io/Bookings/BookingsSOAP" />
+	</wsc:config>
+	<global-property doc:name="Global Property" doc:id="064ca83a-1001-4af7-bfb0-d8fdf146142e" name="mule.env" value="dev" />
+	<global-property doc:name="Global Property" doc:id="b226e759-f05a-4074-9093-5df5502ebdca" name="app.name" value="${secure::app.name}" />
+	<global-property doc:name="Global Property" doc:id="1a2dd0eb-26ec-4712-8950-7523a3c71936" name="encryption.key" value="Mulesoft@123" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="bfe564fa-544c-49ef-a418-efab208e281f" file="env/${mule.env}/${app.name}-${mule.env}-properties.yaml" key="${encryption.key}" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<api-gateway:autodiscovery apiId="${secure::api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="2ca6fa9f-94b7-4aa7-b298-a361c4e1dfa9" flowRef="sys-transnational-api-main"/>
+  
+
+</mule>
