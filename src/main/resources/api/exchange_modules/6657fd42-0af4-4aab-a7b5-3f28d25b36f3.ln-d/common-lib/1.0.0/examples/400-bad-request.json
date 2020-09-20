@@ -1,0 +1,14 @@
+{
+    "errors": [
+        {
+            "code": "ERROR-G-400",
+            "message": "Bad request - The incoming request does not conform to the expected schema definition",
+            "timestamp": "2020-07-02 15:38:16",
+            "transactionId": "a9b670f278554ce79637803b6bc108a3",
+            "internalData": {
+                "developerMessage": "Required query parameter t not specified",
+                "stackTrace": ""
+            }
+        }
+    ]
+}

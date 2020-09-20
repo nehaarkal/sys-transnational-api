@@ -1,0 +1,27 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/d12e01e7-8c20-4b8c-8e67-631205f14b35/ # 
+title: sys-transnational-api
+version: v1
+description: TRANSNATIONAL Transport Provider System API 
+mediaType: application/json
+
+uses:
+  commonErrors: exchange_modules/6657fd42-0af4-4aab-a7b5-3f28d25b36f3.ln-d/common-lib/1.0.0/common-lib.raml
+
+/booking/{transportType}/{transportCompany}:      
+  /routes:
+    uriParameters:
+      transportType:
+        type: string
+      transportCompany:
+        type: string
+    get:
+      description: To retrieve route list from Transnational.
+      is: [commonErrors.commonErrorResponse]
+      responses:
+        200:
+          body:
+            example:
+              !include examples/get-transnational-routes.json 
+
+  
